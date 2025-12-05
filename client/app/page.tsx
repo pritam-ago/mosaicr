@@ -1,65 +1,138 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { ArrowRight, FileText, UploadCloud, Sparkles } from "lucide-react";
+
+export default function LandingRetro() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <section
+      className="w-full min-h-screen flex flex-col items-center justify-center px-6 py-20 relative"
+    >
+      {/* Background Texture */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{
+          backgroundImage:
+            'url("https://www.transparenttextures.com/patterns/paper-fibers.png")',
+        }}
+      />
+
+      {/* Wrapper */}
+      <div className="max-w-6xl w-full flex flex-col items-center text-center gap-10 relative z-[2]">
+
+        {/* HERO TEXT */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-6"
+        >
+          <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight uppercase text-[#0D0D0D] leading-tight">
+            Build the{" "}
+            <span className="px-3 py-1 rounded-lg bg-[#D93A2B] text-[#D9D8D7] shadow-[5px_5px_0_#0D0D0D] inline-block whitespace-nowrap">
+              Perfect Resume
+            </span>
+            {" "}
+            with <span className="text-[#D93A2B] underline decoration-[#0D0D0D] decoration-[6px]">AI</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="text-lg md:text-xl max-w-2xl mx-auto font-medium text-[#0D0D0D] leading-relaxed">
+            Mosaicr helps you craft stunning, ATS-optimized resumes using powerful AI —
+            all wrapped in a clean, retro-inspired interface you'll love.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+        </motion.div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="flex flex-col md:flex-row items-center gap-5"
+        >
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/generate"
+            className="px-8 py-4 rounded-xl bg-[#0D0D0D] text-[#D9D8D7] font-bold text-lg shadow-[6px_6px_0_#D93A2B] hover:shadow-[8px_8px_0_#D93A2B] transition-all duration-300"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            Generate Resume
           </a>
+
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/upload"
+            className="px-8 py-4 rounded-xl bg-[#D9564A] text-[#D9D8D7] font-bold text-lg border-[3px] border-[#0D0D0D] shadow-[5px_5px_0_#0D0D0D] hover:translate-y-[-3px] transition-all duration-300 flex items-center gap-2"
           >
-            Documentation
+            <UploadCloud className="w-5 h-5" />
+            Upload for ATS Score
           </a>
+        </motion.div>
+
+        {/* FEATURES */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16 w-full">
+          
+          {/* CARD 1 */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="bg-[#D9D8D7] border-[3px] border-[#0D0D0D] rounded-2xl p-6 shadow-[8px_8px_0_#0D0D0D] hover:shadow-[12px_12px_0_#0D0D0D] transition-all"
+          >
+            <FileText className="w-10 h-10 text-[#D93A2B] mb-4" />
+            <h3 className="text-2xl font-bold text-[#0D0D0D] uppercase">
+              AI Resume Generator
+            </h3>
+            <p className="text-md mt-3 font-medium">
+              Create job-ready resumes tailored to your role, automatically filled with powerful AI suggestions.
+            </p>
+          </motion.div>
+
+          {/* CARD 2 */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="bg-[#D9A296] border-[3px] border-[#0D0D0D] rounded-2xl p-6 shadow-[8px_8px_0_#0D0D0D] hover:shadow-[12px_12px_0_#0D0D0D] transition-all"
+          >
+            <Sparkles className="w-10 h-10 text-[#0D0D0D] mb-4" />
+            <h3 className="text-2xl font-bold text-[#0D0D0D] uppercase">
+              ATS Score & Tips
+            </h3>
+            <p className="text-md mt-3 font-medium">
+              Upload your resume and get a complete ATS breakdown with actionable optimization suggestions.
+            </p>
+          </motion.div>
+
+          {/* CARD 3 */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="bg-[#D9756C] border-[3px] border-[#0D0D0D] rounded-2xl p-6 shadow-[8px_8px_0_#0D0D0D] hover:shadow-[12px_12px_0_#0D0D0D] transition-all"
+          >
+            <ArrowRight className="w-10 h-10 text-[#0D0D0D] mb-4" />
+            <h3 className="text-2xl font-bold text-[#0D0D0D] uppercase">
+              Retro Themes & Templates
+            </h3>
+            <p className="text-md mt-3 font-medium">
+              Choose from beautifully crafted retro-themed resume templates inspired by old-school print styles.
+            </p>
+          </motion.div>
+
         </div>
-      </main>
-    </div>
+      </div>
+
+      {/* Background Gradient */}
+      <style jsx>{`
+        section {
+          background: radial-gradient(
+            circle at bottom right,
+            #D9D8D7 0%,
+            #D9A296 40%,
+            #D9756C 100%
+          );
+        }
+      `}</style>
+    </section>
   );
 }
