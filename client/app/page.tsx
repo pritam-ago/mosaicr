@@ -4,8 +4,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, FileText, UploadCloud, Sparkles } from "lucide-react";
 
+import NavbarRetro from "../components/navbar";
+import FooterRetro from "../components/footer";
+
 export default function LandingRetro() {
   return (
+    <>
+    <NavbarRetro />
     <section
       className="w-full min-h-screen flex flex-col items-center justify-center px-6 py-20 relative"
     >
@@ -80,7 +85,7 @@ export default function LandingRetro() {
             <h3 className="text-2xl font-bold text-[#0D0D0D] uppercase">
               AI Resume Generator
             </h3>
-            <p className="text-md mt-3 font-medium">
+            <p className="text-md mt-3 font-medium text-black">
               Create job-ready resumes tailored to your role, automatically filled with powerful AI suggestions.
             </p>
           </motion.div>
@@ -134,5 +139,7 @@ export default function LandingRetro() {
         }
       `}</style>
     </section>
+    <FooterRetro />
+    </>
   );
 }
