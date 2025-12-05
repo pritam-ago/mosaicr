@@ -17,7 +17,7 @@ export default function FooterRetro() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-3 gap-12 text-[#0D0D0D] z-[2]">
+      <div className="relative max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-3 gap-12 text-[#0D0D0D]">
 
         {/* LOGO + DESC */}
         <div className="space-y-4">
