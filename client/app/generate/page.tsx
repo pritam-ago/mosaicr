@@ -23,7 +23,7 @@ export default function GeneratePage() {
       ></div>
 
       {/* PAGE WRAPPER */}
-      <div className="relative z-[2] flex flex-col items-center text-center max-w-4xl">
+      <div className="relative z-2 flex flex-col items-center text-center max-w-4xl">
 
         {/* TITLE */}
         <motion.h1
@@ -99,7 +99,7 @@ function OptionCard({
           h-full
           cursor-pointer
           bg-[#D9D8D7] p-8 rounded-2xl 
-          border-[4px] border-[#0D0D0D]
+          border-4 border-[#0D0D0D]
           shadow-[10px_10px_0_#0D0D0D]
           hover:shadow-[14px_14px_0_#0D0D0D]
           transition-all 
@@ -112,7 +112,7 @@ function OptionCard({
           className="
             w-20 h-20 rounded-xl 
             flex items-center justify-center
-            border-[4px] border-[#0D0D0D]
+            border-4 border-[#0D0D0D]
             shadow-[5px_5px_0_#0D0D0D]
             mb-4
           "
@@ -122,7 +122,7 @@ function OptionCard({
         </div>
 
         {/* MIDDLE TEXT BLOCK */}
-        <div className="flex-grow flex flex-col items-center justify-center px-4">
+        <div className="grow flex flex-col items-center justify-center px-4">
           <h3 className="text-2xl md:text-3xl font-extrabold uppercase text-[#0D0D0D]">
             {title}
           </h3>

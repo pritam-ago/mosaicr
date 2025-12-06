@@ -28,10 +28,10 @@ export default function AuthRetro() {
         className="
           relative w-full max-w-md 
           bg-[#D9D8D7] 
-          border-[4px] border-[#0D0D0D] 
+          border-4 border-[#0D0D0D] 
           rounded-2xl 
           shadow-[10px_10px_0_#0D0D0D]
-          px-8 py-10 z-[2]
+          px-8 py-10 z-2
         "
       >
         {/* TITLE */}
@@ -63,9 +63,9 @@ export default function AuthRetro() {
 
         {/* DIVIDER */}
         <div className="flex items-center gap-4 my-6">
-          <div className="h-[2px] bg-[#0D0D0D] flex-1"></div>
+          <div className="h-2 bg-[#0D0D0D] flex-1"></div>
           <span className="font-bold text-[#0D0D0D] text-sm">OR</span>
-          <div className="h-[2px] bg-[#0D0D0D] flex-1"></div>
+          <div className="h-2 bg-[#0D0D0D] flex-1"></div>
         </div>
 
         {/* EMAIL FORM */}

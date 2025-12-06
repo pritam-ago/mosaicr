@@ -23,7 +23,7 @@ export default function GeneralTemplatesPage() {
         }}
       />
 
-      <div className="relative z-[2] text-center max-w-5xl w-full">
+      <div className="relative z-2 text-center max-w-5xl w-full">
         <h1 className="text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#0D0D0D]">
           Choose a Template
         </h1>
@@ -41,7 +41,7 @@ export default function GeneralTemplatesPage() {
                 transition={{ type: "spring", stiffness: 200 }}
                 className="
                   cursor-pointer bg-[#D9D8D7] p-5 rounded-2xl 
-                  border-[4px] border-[#0D0D0D]
+                  border-4 border-[#0D0D0D]
                   shadow-[8px_8px_0_#0D0D0D]
                   hover:shadow-[12px_12px_0_#0D0D0D]
                   transition-all flex flex-col items-center gap-4

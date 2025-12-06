@@ -3,7 +3,7 @@ export default function ResumePreview({ resume }: any) {
     <div
       className="
         w-full max-w-[800px] mx-auto p-10 
-        bg-white border-[4px] border-[#0D0D0D] 
+        bg-white border-4 border-[#0D0D0D] 
         shadow-[10px_10px_0_#0D0D0D] rounded-xl
       "
       style={{ color: resume.theme.text }}

@@ -36,7 +36,7 @@ export default function ResumeEditorPage() {
       {/* LEFT PANEL */}
       <div className="
         w-full md:w-[40%] p-8 
-        border-r-[4px] border-[#0D0D0D]
+        border-r-4 border-[#0D0D0D]
         bg-[#D9D8D7]
         shadow-[6px_0px_0_#0D0D0D]
       ">
