@@ -155,7 +155,7 @@ export default function ResumeEditorByIdPage() {
 
       {/* Save Modal */}
       {showSaveModal && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-999">
           <div className="bg-[#D9D8D7] p-8 rounded-xl border-4 border-[#0D0D0D] shadow-[10px_10px_0_#0D0D0D] w-[90%] max-w-md">
             <h2 className="text-2xl font-extrabold text-[#0D0D0D] mb-4">Save As</h2>
 
@@ -191,7 +191,7 @@ export default function ResumeEditorByIdPage() {
 function Input({ label, value, onChange }: any) {
   return (
     <div>
-      <label className="font-bold">{label}</label>
+      <label className="font-bold text-black">{label}</label>
       <input
         value={value}
         onChange={(e)=>onChange(e.target.value)}
@@ -207,7 +207,7 @@ function Input({ label, value, onChange }: any) {
 function Textarea({ label, value, onChange }: any) {
   return (
     <div>
-      <label className="font-bold">{label}</label>
+      <label className="font-bold text-black">{label}</label>
       <textarea
         value={value}
         onChange={(e)=>onChange(e.target.value)}
@@ -223,7 +223,7 @@ function Textarea({ label, value, onChange }: any) {
 function ColorPicker({ label, value, onChange }: any) {
   return (
     <div className="flex flex-col items-center">
-      <label className="text-sm font-semibold">{label}</label>
+      <label className="text-sm font-semibold text-black">{label}</label>
       <input
         type="color"
         value={value}

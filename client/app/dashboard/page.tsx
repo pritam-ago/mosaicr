@@ -137,83 +137,83 @@ export default function DashboardPage() {
                 </Link>
 
                 {/* DROPDOWN ROOT */}
-<div
-  ref={(el) => {
-    dropdownRefs.current[index] = el;
-  }}
-  className="absolute top-4 right-4 z-30"
-  onClick={(e) => e.stopPropagation()}
->
-  {/* 3 DOT BUTTON */}
-  <button
-    onClick={() =>
-      setOpenMenuId(openMenuId === resume.id ? null : resume.id)
-    }
-    className="
-      p-1 rounded-md border-4 border-[#0D0D0D] bg-[#D9756C]
-      shadow-[3px_3px_0_#0D0D0D]
-    "
-  >
-    <MoreVertical size={20} />
-  </button>
+                <div
+                ref={(el) => {
+                    dropdownRefs.current[index] = el;
+                }}
+                className="absolute top-4 right-4 z-30"
+                onClick={(e) => e.stopPropagation()}
+                >
+                {/* 3 DOT BUTTON */}
+                <button
+                    onClick={() =>
+                    setOpenMenuId(openMenuId === resume.id ? null : resume.id)
+                    }
+                    className="
+                    p-1 rounded-md border-4 border-[#0D0D0D] bg-[#D9756C]
+                    shadow-[3px_3px_0_#0D0D0D]
+                    "
+                >
+                    <MoreVertical size={20} />
+                </button>
 
-  {/* DROPDOWN MENU */}
-  {openMenuId === resume.id && (
-    <div
-      className="
-        absolute top-full right-0 mt-2
-        w-44 bg-[#D9D8D7]
-        border-4 border-[#0D0D0D] rounded-lg
-        shadow-[6px_6px_0_#0D0D0D]
-        z-50
-      "
-    >
-      <button
-        onClick={() => {
-          setOpenMenuId(null);
-          window.location.href = `/resume/${resume.id}`;
-        }}
-        className="w-full px-4 py-2 text-left font-bold hover:bg-[#D9756C]"
-      >
-        View
-      </button>
+                {/* DROPDOWN MENU */}
+                {openMenuId === resume.id && (
+                    <div
+                    className="
+                        absolute top-full right-0 mt-2
+                        w-44 bg-[#D9D8D7]
+                        border-4 border-[#0D0D0D] rounded-lg
+                        shadow-[6px_6px_0_#0D0D0D]
+                        z-50
+                    "
+                    >
+                    <button
+                        onClick={() => {
+                        setOpenMenuId(null);
+                        window.location.href = `/resume/${resume.id}`;
+                        }}
+                        className="w-full px-4 py-2 text-left font-bold hover:bg-[#D9756C]"
+                    >
+                        View
+                    </button>
 
-      <button
-        onClick={() => {
-          setOpenMenuId(null);
-          window.location.href = `/resume/${resume.id}/edit`;
-        }}
-        className="w-full px-4 py-2 text-left font-bold flex items-center gap-2 hover:bg-[#D9756C]"
-      >
-        <Edit3 size={16} /> Edit
-      </button>
+                    <button
+                        onClick={() => {
+                        setOpenMenuId(null);
+                        window.location.href = `/resume/${resume.id}/edit`;
+                        }}
+                        className="w-full px-4 py-2 text-left font-bold flex items-center gap-2 hover:bg-[#D9756C]"
+                    >
+                        <Edit3 size={16} /> Edit
+                    </button>
 
-      <button
-        onClick={() => {
-          setOpenMenuId(null);
-          alert("Downloading…");
-        }}
-        className="w-full px-4 py-2 text-left font-bold flex items-center gap-2 hover:bg-[#D9756C]"
-      >
-        <Download size={16} /> Download
-      </button>
+                    <button
+                        onClick={() => {
+                        setOpenMenuId(null);
+                        alert("Downloading…");
+                        }}
+                        className="w-full px-4 py-2 text-left font-bold flex items-center gap-2 hover:bg-[#D9756C]"
+                    >
+                        <Download size={16} /> Download
+                    </button>
 
-      <button
-        onClick={() => openRename(resume)}
-        className="w-full px-4 py-2 text-left font-bold hover:bg-[#D9756C]"
-      >
-        Rename
-      </button>
+                    <button
+                        onClick={() => openRename(resume)}
+                        className="w-full px-4 py-2 text-left font-bold hover:bg-[#D9756C]"
+                    >
+                        Rename
+                    </button>
 
-      <button
-        onClick={() => handleDelete(resume.id)}
-        className="w-full px-4 py-2 text-left font-bold text-red-700 flex items-center gap-2 hover:bg-red-300"
-      >
-        <Trash2 size={16} /> Delete
-      </button>
-    </div>
-  )}
-</div>
+                    <button
+                        onClick={() => handleDelete(resume.id)}
+                        className="w-full px-4 py-2 text-left font-bold text-red-700 flex items-center gap-2 hover:bg-red-300"
+                    >
+                        <Trash2 size={16} /> Delete
+                    </button>
+                    </div>
+                )}
+                </div>
 
               </div>
             ))}
