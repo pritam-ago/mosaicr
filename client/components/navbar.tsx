@@ -40,7 +40,7 @@ export default function NavbarRetro() {
             Login
           </Link>
         </div>
-
+        
         {/* Hamburger (Mobile) */}
         <button
           className="md:hidden p-2 border-[3px] border-[#0D0D0D] bg-[#D9A296] rounded-lg shadow-[4px_4px_0_#0D0D0D]"
