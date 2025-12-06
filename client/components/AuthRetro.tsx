@@ -4,9 +4,24 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Mail, Lock, User, ArrowRight } from "lucide-react";
+import { useSignIn, useSignUp } from "@clerk/nextjs"; // <-- FIXED
 
 export default function AuthRetro() {
   const [mode, setMode] = useState<"login" | "signup">("login");
+
+  const { signIn } = useSignIn();   // <-- Correct way to access signIn
+  const { signUp } = useSignUp();   // <-- For email/password signup
+
+  // GOOGLE SIGN-IN HANDLER
+  const handleGoogleLogin = async () => {
+    if (!signIn) return; // signIn loads async
+
+    await signIn.authenticateWithRedirect({
+      strategy: "oauth_google",
+      redirectUrl: "/sso-callback",
+      redirectUrlComplete: "/dashboard",
+    });
+  };
 
   return (
     <section className="min-h-screen w-full flex items-center justify-center px-6 py-16 bg-[#d9a296] relative">
@@ -47,10 +62,11 @@ export default function AuthRetro() {
 
         {/* GOOGLE BUTTON */}
         <button
+          onClick={handleGoogleLogin}
           className="
             w-full mt-6 py-3 
             bg-white text-[#0D0D0D] font-semibold 
-            border-[3px] border-[#0D0D0D] 
+            border-4 border-[#0D0D0D] 
             rounded-lg flex items-center justify-center gap-3
             shadow-[5px_5px_0_#0D0D0D]
             hover:shadow-[7px_7px_0_#0D0D0D]
@@ -71,33 +87,20 @@ export default function AuthRetro() {
         {/* EMAIL FORM */}
         <form className="space-y-4">
 
-          {/* NAME FIELD — SIGNUP ONLY */}
           {mode === "signup" && (
-            <InputField
-              icon={User}
-              placeholder="Full Name"
-              type="text"
-            />
+            <InputField icon={User} placeholder="Full Name" type="text" />
           )}
 
-          <InputField
-            icon={Mail}
-            placeholder="Email Address"
-            type="email"
-          />
+          <InputField icon={Mail} placeholder="Email Address" type="email" />
+          <InputField icon={Lock} placeholder="Password" type="password" />
 
-          <InputField
-            icon={Lock}
-            placeholder="Password"
-            type="password"
-          />
-
-          {/* MAIN ACTION BUTTON */}
+          {/* LOCAL LOGIN BUTTON (Not wired yet) */}
           <button
+            type="button"
             className="
               w-full py-3 mt-2 
               bg-[#D93A2B] text-[#D9D8D7] font-bold 
-              rounded-lg border-[3px] border-[#0D0D0D]
+              rounded-lg border-4 border-[#0D0D0D]
               shadow-[5px_5px_0_#0D0D0D]
               hover:shadow-[7px_7px_0_#0D0D0D]
               transition-all duration-300
@@ -134,21 +137,21 @@ export default function AuthRetro() {
           )}
         </p>
       </motion.div>
-
     </section>
   );
 }
 
 /* —————————— INPUT FIELD —————————— */
-
 function InputField({ icon: Icon, placeholder, type }: any) {
   return (
-    <div className="
+    <div
+      className="
       w-full flex items-center gap-3 
-      bg-[#D9D8D7] border-[3px] border-[#0D0D0D] 
+      bg-[#D9D8D7] border-4 border-[#0D0D0D] 
       rounded-lg px-4 py-3
       shadow-[4px_4px_0_#0D0D0D]
-    ">
+    "
+    >
       <Icon className="w-5 h-5 text-[#0D0D0D]" />
       <input
         type={type}
