@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  fullName    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  resumes        Resume[]
+  uploads        UploadedFile[]
+  atsResults     AtsScore[]
+  jobDescriptions JobDescription[]
+  favorites      Favorite[]
+  settings       UserSettings?
+}
+
+model ResumeTemplate {
+  id              Int       @id @default(autoincrement())
+  name            String
+  description     String?
+  previewImageUrl String
+  html            String
+  css             String
+  createdAt       DateTime @default(now())
+
+  resumes Resume[]
+}
+
+model Resume {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  templateId  Int
+  fileName    String
+  data        Json
+  theme       Json
+  createdAt   DateTime @default(now())
+  lastEdited  DateTime @updatedAt
+
+  user         User            @relation(fields: [userId], references: [id])
+  template     ResumeTemplate  @relation(fields: [templateId], references: [id])
+  history      ResumeHistory[]
+  atsResults   AtsScore[]
+  favorites    Favorite[]
+}
+
+model ResumeHistory {
+  id        Int      @id @default(autoincrement())
+  resumeId  Int
+  data      Json
+  updatedAt DateTime @default(now())
+
+  resume Resume @relation(fields: [resumeId], references: [id])
+}
+
+model UploadedFile {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  fileUrl   String
+  rawText   String
+  uploadedAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  atsResults AtsScore[]
+}
+
+model JobDescription {
+  id        Int     @id @default(autoincrement())
+  userId    String
+  title     String
+  jdText    String
+  createdAt DateTime @default(now())
+
+  user       User      @relation(fields: [userId], references: [id])
+  atsResults AtsScore[]
+}
+
+model AtsScore {
+  id               Int       @id @default(autoincrement())
+  userId           String
+  resumeId         Int?
+  uploadedFileId   Int?
+  jobDescriptionId Int?
+
+  overallScore   Int
+  keywordMatch   Json
+  categoryScores Json
+  suggestions    String?
+  createdAt      DateTime @default(now())
+
+  user        User          @relation(fields: [userId], references: [id])
+  resume      Resume?       @relation(fields: [resumeId], references: [id])
+  upload      UploadedFile? @relation(fields: [uploadedFileId], references: [id])
+  jobDesc     JobDescription? @relation(fields: [jobDescriptionId], references: [id])
+}
+
+model Favorite {
+  id       Int    @id @default(autoincrement())
+  userId   String
+  resumeId Int
+
+  user    User   @relation(fields: [userId], references: [id])
+  resume  Resume @relation(fields: [resumeId], references: [id])
+}
+
+model UserSettings {
+  id             Int    @id @default(autoincrement())
+  userId         String @unique
+  defaultTemplate Int?
+  theme          Json?
+
+  user User @relation(fields: [userId], references: [id])
+}
