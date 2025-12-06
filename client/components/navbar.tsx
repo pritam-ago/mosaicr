@@ -27,7 +27,7 @@ export default function NavbarRetro() {
           <NavItem text="Dashboard" href="/dashboard" />
 
           <Link
-            href="/login"
+            href="/auth"
             className="
               px-4 py-2 rounded-lg font-bold 
               bg-[#D93A2B] text-[#D9D8D7] 
