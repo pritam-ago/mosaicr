@@ -13,8 +13,8 @@ app.use(
   })
 );
 
-app.use("/auth", authRoutes);
-app.use("/resume", resumeRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/resume", resumeRoutes);
 
 app.get("/", (req, res) => {
   res.send("Mosaicr Server is running!!!");
