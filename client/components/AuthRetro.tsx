@@ -23,6 +23,16 @@ export default function AuthRetro() {
     });
   };
 
+  const handleGoogleSignup = async () => {
+    if (!signUp) return; // signUp loads async
+
+    await signUp.authenticateWithRedirect({
+      strategy: "oauth_google",
+      redirectUrl: "/sso-callback",
+      redirectUrlComplete: "/dashboard",
+    });
+  };
+
   return (
     <section className="min-h-screen w-full flex items-center justify-center px-6 py-16 bg-[#d9a296] relative">
 
@@ -61,7 +71,8 @@ export default function AuthRetro() {
         </p>
 
         {/* GOOGLE BUTTON */}
-        <button
+        {mode === "login" ? (
+          <button
           onClick={handleGoogleLogin}
           className="
             w-full mt-6 py-3 
@@ -75,7 +86,24 @@ export default function AuthRetro() {
         >
           <Image src="/google.png" width={20} height={20} alt="Google" />
           Continue with Google
+        </button>) : (
+          <button
+          onClick={handleGoogleSignup}
+          className="
+            w-full mt-6 py-3 
+            bg-white text-[#0D0D0D] font-semibold 
+            border-4 border-[#0D0D0D] 
+            rounded-lg flex items-center justify-center gap-3
+            shadow-[5px_5px_0_#0D0D0D]
+            hover:shadow-[7px_7px_0_#0D0D0D]
+            transition-all duration-300
+          "
+        >
+          <Image src="/google.png" width={20} height={20} alt="Google" />
+          Signup with Google
         </button>
+        )}
+        
 
         {/* DIVIDER */}
         <div className="flex items-center gap-4 my-6">
@@ -146,8 +174,7 @@ function InputField({ icon: Icon, placeholder, type }: any) {
   return (
     <div
       className="
-      w-full flex items-center gap-3 
-      bg-[#D9D8D7] border-4 border-[#0D0D0D] 
+      w-full flex items-center gap-3 border-4 border-[#0D0D0D] 
       rounded-lg px-4 py-3
       shadow-[4px_4px_0_#0D0D0D]
     "
