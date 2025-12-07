@@ -13,7 +13,7 @@ export default function CallbackPage() {
     async function process() {
       const fullParams = Object.fromEntries(searchParams.entries());
 
-      await handleRedirectCallback(
+      await handleRedirectCallback( 
         { ...fullParams },               // Required OAuth callback params
         async (to) => { await router.push(to); }  // Navigation handler
       );

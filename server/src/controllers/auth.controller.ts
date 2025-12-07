@@ -24,3 +24,4 @@ export const syncUser = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Could not sync user" });
   }
 };
+
