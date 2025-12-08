@@ -13,6 +13,8 @@ import {
   FileText,
 } from "lucide-react";
 
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+
 type ResumeItem = {
   id: number;
   name: string;
@@ -20,6 +22,7 @@ type ResumeItem = {
 };
 
 export default function DashboardPage() {
+
   const [resumes, setResumes] = useState<ResumeItem[]>([
     { id: 1, name: "Software Engineer Resume", updated: "Jan 5, 2025" },
     { id: 2, name: "Backend Developer Resume", updated: "Dec 22, 2024" },
@@ -80,7 +83,7 @@ export default function DashboardPage() {
   return (
     <>
       <NavbarRetro />
-
+      <SignedIn>
       <section className="min-h-screen bg-[#D9A296] px-6 py-16 relative">
         {/* Background texture */}
         <div
@@ -220,6 +223,58 @@ export default function DashboardPage() {
           </div>
         </div>
       </section>
+      </SignedIn>
+      
+            <SignedOut>
+  <section className="min-h-screen w-full flex items-center justify-center bg-[#D9A296] relative px-6 py-20">
+
+    {/* Background texture */}
+    <div
+      className="absolute inset-0 opacity-25 pointer-events-none"
+      style={{
+        backgroundImage:
+          "url('https://www.transparenttextures.com/patterns/paper-fibers.png')",
+      }}
+    />
+
+    {/* Center Card */}
+    <div
+      className="
+        relative z-[2]
+        max-w-lg w-full text-center
+        bg-[#D9D8D7]
+        border-4 border-[#0D0D0D]
+        rounded-2xl
+        shadow-[12px_12px_0_#0D0D0D]
+        px-10 py-14
+      "
+    >
+      <h2 className="text-4xl font-extrabold uppercase text-[#0D0D0D]">
+        Login Required
+      </h2>
+
+      <p className="mt-4 text-lg font-medium text-[#0D0D0D] opacity-80">
+        You must be logged in to access your dashboard and resumes.
+      </p>
+
+      <Link
+        href="/auth"
+        className="
+          inline-block mt-8 px-8 py-4
+          bg-[#D93A2B] text-[#D9D8D7] font-bold text-lg
+          border-4 border-[#0D0D0D]
+          rounded-xl
+          shadow-[6px_6px_0_#0D0D0D]
+          hover:shadow-[8px_8px_0_#0D0D0D]
+          transition-all duration-300
+        "
+      >
+        Go to Login
+      </Link>
+    </div>
+  </section>
+</SignedOut>
+
 
       <FooterRetro />
 

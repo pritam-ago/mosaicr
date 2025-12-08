@@ -43,7 +43,9 @@ export default function NavbarRetro() {
           <NavItem text="Home" href="/" />
           <NavItem text="Generate" href="/generate" />
           <NavItem text="Upload" href="/upload" />
-          <NavItem text="Dashboard" href="/dashboard" />
+          {isSignedIn && (
+            <NavItem text="Dashboard" href="/dashboard" />
+          )}
 
           {/* IF NOT LOGGED IN */}
           {!isSignedIn && (
