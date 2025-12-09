@@ -28,7 +28,7 @@ export default function NavbarRetro() {
   }, []);
 
   return (
-    <nav className="w-full px-6 py-4 bg-[#D9D8D7] border-b-[3px] border-[#0D0D0D] shadow-[6px_6px_0_#0D0D0D] relative z-50">
+    <nav className="fixed top-0 left-0 w-full px-6 py-4 bg-[#D9D8D7] border-b-[3px] border-[#0D0D0D] shadow-[6px_6px_0_#0D0D0D] z-50">
       
       {/* DESKTOP NAV */}
       <div className="max-w-6xl mx-auto flex items-center justify-between">
