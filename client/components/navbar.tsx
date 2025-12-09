@@ -4,7 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, LogOut, User } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+
+import { redirect } from "next/navigation";
 
 import { useUser, useClerk } from "@clerk/nextjs";
 
@@ -71,15 +72,8 @@ export default function NavbarRetro() {
                 onClick={() => setDropdown(!dropdown)}
                 className="flex items-center gap-2 border-[3px] border-[#0D0D0D] bg-[#D9A296] px-3 py-1 rounded-lg shadow-[4px_4px_0_#0D0D0D]"
               >
-                <Image
-                  src={"/pfp.png"}
-                  width={28}
-                  height={28}
-                  alt="Profile picture"
-                  className="rounded-full border-[2px] border-[#0D0D0D]"
-                />
                 <span className="font-bold text-[#0D0D0D]">{user?.fullName || "User"}</span>
-                <ChevronDown size={18} />
+                <ChevronDown size={18} color="black"/>
               </button>
 
               {/* DROPDOWN MENU */}
@@ -98,15 +92,15 @@ export default function NavbarRetro() {
                   >
                     <Link
                       href="/dashboard"
-                      className="flex items-center gap-2 px-4 py-2 hover:bg-[#D9A296] border-b-[3px] border-[#0D0D0D]"
+                      className="flex items-center text-black gap-2 px-4 py-2 hover:bg-[#D9A296] border-b-[3px] border-[#0D0D0D]"
                       onClick={() => setDropdown(false)}
                     >
                       <User size={18} /> Profile
                     </Link>
 
                     <button
-                      onClick={() => signOut().then(() => (window.location.href = "/"))}
-                      className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-[#D9A296]"
+                      onClick={() => signOut().then(() => redirect("/"))}
+                      className="flex items-center text-black gap-2 w-full text-left px-4 py-2 hover:bg-[#D9A296]"
                     >
                       <LogOut size={18} /> Logout
                     </button>
@@ -164,7 +158,7 @@ export default function NavbarRetro() {
               </Link>
             ) : (
               <button
-                onClick={() => signOut().then(() => (window.location.href = "/"))}
+                onClick={() => signOut().then(() => redirect("/"))}
                 className="
                   block w-full mt-3 px-4 py-2 text-center rounded-lg 
                   bg-[#D93A2B] text-[#D9D8D7] font-bold 
