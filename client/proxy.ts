@@ -10,8 +10,8 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
 
   if (!isAuthenticated && isProtectedRoute(req)) {
     const url = req.nextUrl.clone()
-  url.pathname = '/auth'
-  return NextResponse.rewrite(url)
+    url.pathname = '/auth'
+    return NextResponse.rewrite(url)
   }
 })
 

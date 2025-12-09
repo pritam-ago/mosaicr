@@ -12,8 +12,7 @@ export default function AuthRetro() {
 
   const { signIn, isLoaded: signInLoaded } = useSignIn();
   const { signUp, isLoaded: signUpLoaded } = useSignUp();
-  const { client, user } = useClerk();
-  const {setActive} = useClerk();
+  const { setActive } = useClerk();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +30,7 @@ export default function AuthRetro() {
     await signIn!.authenticateWithRedirect({
       strategy: "oauth_google",
       redirectUrl: "/sso-callback",
-      redirectUrlComplete: "/dashboard",
+      redirectUrlComplete: "/sso-callback",
     });
   };
 
@@ -41,7 +40,7 @@ export default function AuthRetro() {
     await signUp!.authenticateWithRedirect({
       strategy: "oauth_google",
       redirectUrl: "/sso-callback",
-      redirectUrlComplete: "/dashboard",
+      redirectUrlComplete: "/sso-callback",
     });
   };
 
@@ -52,19 +51,16 @@ export default function AuthRetro() {
     if (!signUpLoaded) return;
 
     try {
-      // 1. Create user
       await signUp!.create({
         emailAddress: email,
         password,
       });
 
-      // 2. Attach full name BEFORE verification
       await signUp!.update({
         firstName: fullName.split(" ")[0] || fullName,
         lastName: fullName.split(" ")[1] || "",
       });
 
-      // 3. Send code
       await signUp!.prepareEmailAddressVerification({
         strategy: "email_code",
       });
@@ -72,7 +68,8 @@ export default function AuthRetro() {
       setPendingVerification(true);
     } catch (err: any) {
       console.error(err);
-      alert(err.errors?.[0]?.longMessage || "Signup failed");
+      const msg = err?.errors?.[0]?.longMessage || "Signup failed";
+      alert(msg);
     }
   };
 
@@ -80,17 +77,25 @@ export default function AuthRetro() {
      VERIFY EMAIL CODE
   -------------------------------------------------------- */
   const handleVerifyCode = async () => {
+    if (!signUpLoaded) return;
+
     try {
       const attempt = await signUp!.attemptEmailAddressVerification({
         code: verifCode,
       });
 
       if (attempt.status === "complete") {
-        redirect("/dashboard");
+        if (attempt.createdSessionId) {
+          await setActive({ session: attempt.createdSessionId });
+        }
+        redirect("/sso-callback");
+      } else {
+        console.log("Unexpected verify state:", attempt);
       }
     } catch (err: any) {
       console.error(err);
-      alert(err.errors?.[0]?.longMessage || "Invalid verification code");
+      const msg = err?.errors?.[0]?.longMessage || "Invalid verification code";
+      alert(msg);
     }
   };
 
@@ -98,45 +103,34 @@ export default function AuthRetro() {
      EMAIL + PASSWORD LOGIN
   -------------------------------------------------------- */
   const handleEmailLogin = async () => {
-  if (!signInLoaded) return;
+    if (!signInLoaded) return;
 
-  try {
-    const result = await signIn!.create({
-      identifier: email,
-      password,
-    });
+    try {
+      const result = await signIn!.create({
+        identifier: email,
+        password,
+      });
 
-    // SUCCESS
-    if (result.status === "complete") {
-      await setActive({ session: result.createdSessionId });
-      window.location.href = "/dashboard";
-      return;
+      if (result.status === "complete") {
+        if (result.createdSessionId) {
+          await setActive({ session: result.createdSessionId });
+        }
+        redirect("/sso-callback");
+      }
+
+      console.log("Intermediate login state:", result);
+    } catch (err: any) {
+      console.error("Login error:", err);
+      const msg = err?.errors?.[0]?.longMessage || "Login failed";
+      alert(msg);
     }
-
-    // ANY OTHER STATE (handled internally by Clerk)
-    console.log("Clerk intermediate state:", result);
-    return;
-
-  } catch (err: any) {
-    console.error("Login error:", err);
-
-    const message = err?.errors?.[0]?.longMessage;
-
-    // Only show alert on REAL failures
-    if (message) {
-      alert(message);
-    }
-  }
-};
-
-
+  };
 
   /* --------------------------------------------------------
       UI
   -------------------------------------------------------- */
   return (
     <section className="min-h-screen w-full flex items-center justify-center px-6 py-16 bg-[#d9a296] relative">
-
       {/* BG TEXTURE */}
       <div
         className="absolute inset-0 opacity-25 pointer-events-none"

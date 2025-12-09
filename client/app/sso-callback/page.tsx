@@ -1,30 +1,49 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useClerk } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
-export default function CallbackPage() {
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+
+export default function SSOCallbackPage() {
+  const { user, isLoaded } = useUser();
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const { handleRedirectCallback } = useClerk();
 
   useEffect(() => {
-    async function process() {
-      const fullParams = Object.fromEntries(searchParams.entries());
+    const syncAndRedirect = async () => {
+      if (!isLoaded) return;
+      if (!user) {
+        router.replace("/auth");
+        return;
+      }
 
-      await handleRedirectCallback( 
-        { ...fullParams },               // Required OAuth callback params
-        async (to) => { await router.push(to); }  // Navigation handler
-      );
-    }
+      try {
+        await fetch(`${API_BASE_URL}/api/auth/sync`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            clerkId: user.id,
+            email: user.primaryEmailAddress?.emailAddress,
+            fullName: `${user.firstName || ""} ${user.lastName || ""}`.trim(),
+          }),
+        });
+      } catch (err) {
+        console.error("Failed to sync user to backend:", err);
+      } finally {
+        router.replace("/dashboard");
+      }
+    };
 
-    process();
-  }, [searchParams, handleRedirectCallback, router]);
+    syncAndRedirect();
+  }, [isLoaded, user, router]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      Redirecting...
-    </div>
+    <section className="min-h-screen flex items-center justify-center bg-[#d9a296]">
+      <p className="text-lg font-semibold text-[#0D0D0D]">
+        Finishing sign-in, please wait…
+      </p>
+    </section>
   );
 }
