@@ -94,8 +94,8 @@ export default function DashboardPage() {
           }}
         />
 
-        <div className="relative z-[2] max-w-6xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-[#0D0D0D] mb-12 uppercase">
+        <div className="relative z-2 max-w-6xl mx-auto">
+          <h1 className="text-xl md:text-2xl font-extrabold text-[#0D0D0D] mb-12 uppercase">
             Your Resumes
           </h1>
 
@@ -240,7 +240,7 @@ export default function DashboardPage() {
     {/* Center Card */}
     <div
       className="
-        relative z-[2]
+        relative z-2
         max-w-lg w-full text-center
         bg-[#D9D8D7]
         border-4 border-[#0D0D0D]
@@ -280,7 +280,7 @@ export default function DashboardPage() {
 
       {/* Rename modal */}
       {renameOpen && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[100]">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-100">
           <div
             className="
               bg-[#D9D8D7] p-8 rounded-xl w-[90%] max-w-md

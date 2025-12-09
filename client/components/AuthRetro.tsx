@@ -103,28 +103,37 @@ export default function AuthRetro() {
      EMAIL + PASSWORD LOGIN
   -------------------------------------------------------- */
   const handleEmailLogin = async () => {
-    if (!signInLoaded) return;
+  if (!signInLoaded) return;
 
-    try {
-      const result = await signIn!.create({
-        identifier: email,
-        password,
-      });
+  try {
+    const result = await signIn!.create({
+      identifier: email,
+      password,
+    });
 
-      if (result.status === "complete") {
-        if (result.createdSessionId) {
-          await setActive({ session: result.createdSessionId });
-        }
-        redirect("/sso-callback");
-      }
+    console.log("SIGN IN RESULT:", result);
 
-      console.log("Intermediate login state:", result);
-    } catch (err: any) {
-      console.error("Login error:", err);
-      const msg = err?.errors?.[0]?.longMessage || "Login failed";
-      alert(msg);
+    if (result.status === "complete") {
+      await setActive({ session: result.createdSessionId! });
+      return redirect("/sso-callback");
     }
-  };
+    if (result.status === "needs_first_factor" || result.status === "needs_identifier") {
+      return alert("Additional verification required.");
+    }
+    console.log("Intermediate state:", result);
+
+  } catch (err: any) {
+    console.error("Login error:", err);
+
+    if (signIn?.createdSessionId) {
+      await setActive({ session: signIn.createdSessionId });
+      return redirect("/sso-callback");
+    }
+
+    const msg = err?.errors?.[0]?.longMessage || "Login failed";
+    alert(msg);
+  }
+};
 
   /* --------------------------------------------------------
       UI
